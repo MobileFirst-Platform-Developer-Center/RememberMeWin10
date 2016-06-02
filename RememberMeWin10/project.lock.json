@@ -11686,7 +11686,7 @@
   },
   "libraries": {
     "IBM.MobileFirstPlatformFoundation/8.0.0": {
-      "sha512": "K3D77EugJk0XTHX9frHxmYGUXDg1uQxE/e/fAVbX9lu+ICOTdFs5au5WCreHKZ1IqxKOA1XExpR+hYdA1kKvcw==",
+      "sha512": "CzitWz2FwmoeA3XrpWeLVtPP/HnpVXIjZT55q7IeLpJ+dgCEl8iUbNyQiRRGTL5Ebl60e+Uf3JDDjP+/IjQKKw==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
@@ -11721,8 +11721,10 @@
         "lib/netcore45/x64/IBMMobileFirstPlatformFoundationWin8.pri",
         "lib/netcore45/x86/IBMMobileFirstPlatformFoundationWin8.dll",
         "lib/netcore45/x86/IBMMobileFirstPlatformFoundationWin8.pri",
+        "lib/wpa81/IBMMobileFirstPlatformFoundationWin8.dll",
+        "lib/wpa81/IBMMobileFirstPlatformFoundationWin8.pri",
         "lib/wpa81/Worklight.Core.dll",
-        "package/services/metadata/core-properties/a921369055fc4abc8915d276b8227086.psmdcp",
+        "package/services/metadata/core-properties/7dc8a8455fc24259af463169bdd0d2d0.psmdcp",
         "ref/uap10.0/IBMMobileFirstPlatformFoundationWin10.dll",
         "ref/uap10.0/IBMMobileFirstPlatformFoundationWin10.pri",
         "ref/uap10.0/Worklight.Core.dll",

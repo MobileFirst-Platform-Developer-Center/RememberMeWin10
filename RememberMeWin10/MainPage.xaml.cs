@@ -1,4 +1,4 @@
-﻿/**
+/**
 * Copyright 2016 IBM Corp.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,6 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-
 
 using System;
 using System.Collections.Generic;
@@ -65,7 +64,7 @@ namespace RememberMeWin10
             _newClient.RegisterChallengeHandler(userChallengeHandler);
 
             getAccessToken();
-            
+
         }
 
         private async void getAccessToken()
@@ -77,7 +76,7 @@ namespace RememberMeWin10
                 Debug.WriteLine("Success");
                 _this.hideChallenge();
                 userChallengeHandler.SetShouldSubmitChallenge(false);
-                
+
             }
             else
             {
@@ -168,7 +167,8 @@ namespace RememberMeWin10
 
                 hideChallenge();
 
-                
+                AddUserName(username.Text);
+
             }
             else
             {
@@ -241,11 +241,6 @@ namespace RememberMeWin10
             userChallengeHandler.SetShouldSubmitChallenge(false);
             UserLoginChallengeHandler.waitForPincode.Set();
 
-        }
-
-        public WorklightChallengeHandler getChallengeHandler()
-        {
-            return userChallengeHandler;
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)

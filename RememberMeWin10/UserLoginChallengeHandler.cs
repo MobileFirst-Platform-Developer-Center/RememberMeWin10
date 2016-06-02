@@ -1,4 +1,4 @@
-﻿/**
+/**
 * Copyright 2016 IBM Corp.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,8 +13,6 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,7 +26,7 @@ using Worklight;
 
 namespace RememberMeWin10
 {
-    class UserLoginChallengeHandler : Worklight.WorklightChallengeHandler
+    class UserLoginChallengeHandler : Worklight.SecurityCheckChallengeHandler
     {
         public JObject challengeAnswer { get; set; }
 
@@ -70,23 +68,14 @@ namespace RememberMeWin10
             waitForPincode.WaitOne();
         }
 
-        public override bool ShouldSubmitFailure()
+        public override bool ShouldCancel()
         {
             return shouldsubmitfailure;
         }
 
-        public override WorklightResponse GetSubmitFailureResponse()
-        {
-            JObject respJSON = new JObject();
-            respJSON.Add("Respose", "Cancelled Request");
-
-            WorklightResponse response = new WorklightResponse(false, "User cancelled the request", respJSON, "User cancelled the request", (int)HttpStatusCode.InternalServerError);
-            return response;
-        }
-
         public async void login(JObject credentials)
         {
-            WorklightResponse response = null; 
+            WorklightResponse response = null;
             if (isChallenged)
             {
                 this.challengeAnswer = credentials;
@@ -98,20 +87,19 @@ namespace RememberMeWin10
             else
             {
                 response = await WorklightClient.CreateInstance().AuthorizationManager.Login(this.SecurityCheck, this.challengeAnswer);
-            }
 
+                if (response.Success)
+                {
+                    Debug.WriteLine(response.ResponseText);
+                    MainPage._this.hideChallenge();
+                    Debug.WriteLine(response.ResponseJSON["successes"]["UserLogin"]["user"]["id"]);
+                    string userName = response.ResponseJSON["successes"]["UserLogin"]["user"]["id"].ToString();
+                    var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                    localSettings.Values["useridentity"] = userName;
 
-            if (response.Success)
-            {
-                Debug.WriteLine(response.ResponseText);
-                MainPage._this.hideChallenge();
-                Debug.WriteLine(response.ResponseJSON["successes"]["UserLogin"]["user"]["id"]);
-                string userName = response.ResponseJSON["successes"]["UserLogin"]["user"]["id"].ToString();
-                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-                localSettings.Values["useridentity"] = userName;
+                    MainPage._this.AddUserName(userName);
 
-                MainPage._this.AddUserName(userName);
-
+                }
             }
 
         }
@@ -169,7 +157,7 @@ namespace RememberMeWin10
         {
             challengeAnswer = (JObject)answer;
         }
-        
-       
+
+
     }
 }
